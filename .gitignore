@@ -1,0 +1,22 @@
+*.kml
+*.png
+*.dat
+*.eps
+*.pdf
+*.bmp
+*.ps
+*.tmp
+*.nc
+*.history
+*.txt
+*.tiff
+*.vrt
+*.bsb
+*.kap
+openlayers
+bootstrap
+images
+Mapas
+temp
+GMT Docs
+datos
