@@ -1,0 +1,30 @@
+div.etiquetas{
+  margin-left: 0;
+}
+
+img.logo{
+  min-width: 5%;
+  max-width: 10%;
+  height: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+main{
+  padding-bottom: 0rem;
+}
+
+div.jumbotron{
+  padding: 1rem;
+}
+
+header{
+  position: sticky;
+  top: 0;
+}
+
+footer{
+  position: sticky;
+  bottom: 0;
+}

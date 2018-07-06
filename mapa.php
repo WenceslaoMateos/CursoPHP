@@ -2,21 +2,15 @@
 <html>
     <head>
         <title>Visor de Campañas</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php include('templates/inicial/head.php');?>  
         <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
         <link rel="stylesheet" href="./css/mapa.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> 
     </head>
     <body>
-        <header>
-
-        </header>
+        <?php include('templates/inicial/header.php');?>  
         <div class="container">
             <aside>
             
@@ -30,5 +24,6 @@
         <script src="./js/mapasHidrografia.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapa.js"></script>
+        <?php include('templates/inicial/footer.php');?>  
     </body>
 </html>
