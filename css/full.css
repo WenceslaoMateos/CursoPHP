@@ -12,7 +12,7 @@ img.logo{
 }
 
 main{
-  padding-bottom: 0rem;
+  padding-bottom: 3rem;
 }
 
 div.jumbotron{
@@ -20,6 +20,7 @@ div.jumbotron{
 }
 
 header{
+  z-index: 99999;
   position: sticky;
   top: 0;
 }
@@ -27,4 +28,8 @@ header{
 footer{
   position: sticky;
   bottom: 0;
+}
+
+.form-archivo{
+  padding-top: 2rem;
 }

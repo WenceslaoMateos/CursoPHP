@@ -45,8 +45,7 @@ $sql = "SHOW tables;";
 $tablas = $conn->query($sql);
 
 for ($j = 0; $tabla = $tablas->fetch_assoc(); $j++){
-
-    
+    if ($tabla["Tables_in_sgs"] != "usuarios" && $tabla["Tables_in_sgs"] != "campanias" && $tabla["Tables_in_sgs"] != "mediciones" && $tabla["Tables_in_sgs"] != "barcos"){
     //poligono formado por el rectangulo a ser solicitado y mostrado en el mapa
     $poligono = "'Polygon(($x1 $y1,
                         $x1 $y2,
@@ -143,7 +142,7 @@ for ($j = 0; $tabla = $tablas->fetch_assoc(); $j++){
             $kml .= '          </ExtendedData>'."\n";
             $kml .= '      </Placemark>'."\n";
         }
-    }
+    }}
 }
 //END CUERPO KML
 

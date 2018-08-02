@@ -10,16 +10,16 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php" id="home">Home</a>
+                        <a class="nav-link" href="mapa.php" id="home">Tracking</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="nosotros.php" id="nosotros">Nosotros</a>
+                        <a class="nav-link" href="cargar-campanias.php" id="nosotros">Carga de barcos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php" id="login">Log In</a>
+                        <a class="nav-link" href="carga-batimetricos.php" id="login">Carga de Batimetrias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contacto.php">Contacto</a>
+                        <a class="nav-link" href="sesionBaja.php" id="login">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>

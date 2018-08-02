@@ -1,3 +1,11 @@
+<?php
+
+$precisa_sesion = true;
+$msg_error = 0;
+
+require('templates/coneccion.php');
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,16 +19,13 @@
     </head>
     <body>
         <?php include('templates/inicial/header.php');?>  
-        <div class="container">
-            <aside>
+        <div class="row" style="margin-right: 0px;">
+            <aside class="col-4">
             
             </aside>
-            <div id="map" class="map"></div>
-            <a id="popup" tabindex="0" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="asdfasdf"></a>            
+            <div id="map" class="map col-8 mt-2"></div>
+            <!--<a id="popup" tabindex="0" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="asdfasdf"></a>-->     
         </div>
-        <footer>
-
-        </footer>
         <script src="./js/mapasHidrografia.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapa.js"></script>
