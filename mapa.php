@@ -18,7 +18,7 @@ require('templates/coneccion.php');
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     </head>
     <body>
-        <?php include('templates/inicial/header.php');?>  
+        <?php include('templates/online/header.php');?>  
         <div class="row" style="margin-right: 0px;">
             <aside class="col-4">
             
@@ -30,5 +30,9 @@ require('templates/coneccion.php');
         <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapa.js"></script>
         <?php include('templates/inicial/footer.php');?>  
+        <script>
+            $('ul li:nth-child(1)').addClass('active');
+            $('ul li:nth-child(1) a').addClass('active').append('<span class="sr-only">(current)</span>');
+        </script>
     </body>
 </html>

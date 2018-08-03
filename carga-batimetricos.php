@@ -1,3 +1,11 @@
+<?php
+
+$precisa_sesion = true;
+$msg_error = 0;
+
+require('templates/coneccion.php');
+
+?>
 <!DOCTYPE html>
 <html>
     <head>

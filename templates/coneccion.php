@@ -18,4 +18,5 @@
     define('DB_DB', "SGS");
     
     $db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_DB);
+    mysqli_set_charset($db, "utf8");
 ?>

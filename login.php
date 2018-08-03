@@ -11,7 +11,7 @@ if(isset($_REQUEST['email']) && $_REQUEST['email'] != ""){
     $contra = md5($contra);
     
     $usuario = mysqli_query($db, "SELECT * FROM usuarios WHERE email = '$email' and contrasena = '$contra';");
-    if($usuario){
+    if(mysqli_num_rows($usuario) > 0){
         $usuario_db = mysqli_fetch_assoc($usuario);
         $_SESSION['id'] = $usuario_db['id'];
         session_write_close();

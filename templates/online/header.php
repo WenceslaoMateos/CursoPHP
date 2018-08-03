@@ -13,7 +13,7 @@
                         <a class="nav-link" href="mapa.php" id="home">Tracking</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cargar-campanias.php" id="nosotros">Carga de barcos</a>
+                        <a class="nav-link" href="cargar-campanias.php" id="nosotros">Carga de mediciones</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="carga-batimetricos.php" id="login">Carga de Batimetrias</a>
