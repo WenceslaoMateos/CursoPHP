@@ -7,4 +7,5 @@
         $_SESSION = array();
     }
     header("location: login.php");  
+    die();
 ?>

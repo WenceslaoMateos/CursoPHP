@@ -7,7 +7,7 @@
             die();
         }
     }
-    else if ($_SESSION['id'] != ""){
+    else if (isset($_SESSION['id']) && $_SESSION['id'] != ""){
         header("location: mapa.php");
         die();
     }

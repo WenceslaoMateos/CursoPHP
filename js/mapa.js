@@ -121,3 +121,22 @@ function hacerCuandoSeleccione(that){
 var select = new ol.interaction.Select({condition: ol.events.condition.click});
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
+
+$(document).ready(function(){
+  $("#enviar").click(changeVector);
+  $('#barco').on('change',function(){
+      var barco = $(this).val();
+      if (barco){
+          $.ajax({
+              type:'POST',
+              url:'/Servidor/CursoPHP/TrabajoFInal/TrabajoFinalPHP/ajaxData.php',
+              data:{
+                  barco: barco
+              },
+              success:function(html){
+                  $('#campania').html(html); 
+              }
+          }); 
+      }
+  });
+});

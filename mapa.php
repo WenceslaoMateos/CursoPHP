@@ -21,7 +21,27 @@ require('templates/coneccion.php');
         <?php include('templates/online/header.php');?>  
         <div class="row" style="margin-right: 0px;">
             <aside class="col-4">
-            
+                <form action="buscaDatosDB.php" method="post" name="filtro" enctype="multipart/form-data" class=" mt-5">
+                    <div class="mb-3">
+                        <select class="form-control" name="barco" require id="barco">
+                            <option value="">Seleccione un barco</option>
+                            <?php
+                            $barcos = mysqli_query($db, "SELECT * FROM barcos;");
+                            if(mysqli_num_rows($barcos) > 0){
+                                while($barco = mysqli_fetch_assoc($barcos)){
+                                    echo '<option value="' . $barco['id'] . '">' . $barco['nombre'] . '</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-control" name="campania" id="campania" require>
+                            <option value="">Seleccione una campaña</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary ml-5" name="Enviar" value="Enviar" id="enviar">Filtrar</button>
+                </form>            
             </aside>
             <div id="map" class="map col-8 mt-2"></div>
             <!--<a id="popup" tabindex="0" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="asdfasdf"></a>-->     

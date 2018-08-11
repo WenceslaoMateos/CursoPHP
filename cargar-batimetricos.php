@@ -15,20 +15,35 @@ require('templates/coneccion.php');
 <body>
     <?php include('templates/online/header.php');?>  
     <main>
+    <div class="jumbotron jumbotron-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <h3 class="h3">Carga de nuevas campañas</h3>
+                        <p>Aqui usted puede cargar nuevas campañas en el sistema.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container">
+    <div class="row justify-content-md-center">
         <?php
         if (!array_key_exists('Enviar',$_POST)) {
             ?>
             <form method="post" name="archivo" enctype="multipart/form-data">
+    <div class="row justify-content-md-center">
                 <table class="table">
                     <tr>
-                        <td><div class="checkbox">
-                            <label><input type="checkbox" name="-Wc" value=" -Wc"> Curvas de nivel</label> </div></td>
-                            
+                        <td colspan="11">
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="-Wc" value=" -Wc"> Curvas de nivel</label> 
+                            </div>
+                        </td>    
                     </tr>
                     <tr>
-                        <td><input type="radio" name="-Q" value=" -Qm" checked> Grilla<br></td>
-                        <td><input type="radio" name="-Q" value=" -Qs" checked> Superficie<br></td>
-                        <td><input type="radio" name="-Q" value=" -Qi" checked> Imagen<br></td>
+                        <td colspan="4"><input type="radio" name="-Q" value=" -Qm" checked> Grilla<br></td>
+                        <td colspan="4"><input type="radio" name="-Q" value=" -Qs" checked> Superficie<br></td>
+                        <td colspan="4"><input type="radio" name="-Q" value=" -Qi" checked> Imagen<br></td>
                     </tr>
                     <tr>
                         <td><input type="radio" name=" -T" value=" -Tb" checked> BMP<br></td>
@@ -45,12 +60,10 @@ require('templates/coneccion.php');
                     </tr>
                     <tr>
                         <th>Adjuntar</th>
-                        <td><input name="adjunto" type="file" accept=".tmp"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align:center;"><input type="submit" name="Enviar" value="Enviar"></td>
+                        <td colspan="11"><input name="adjunto" type="file" accept=".tmp"></td>
                     </tr>
                 </table>
+                <input type="submit" class="btn btn-primary col-md-auto" name="Enviar" value="Enviar"></div>
             </form>
             <?php
         }   
@@ -64,11 +77,12 @@ require('templates/coneccion.php');
             readfile($filename);
         }
             ?>
+            </div></div>
         </main>
         <?php include('templates/inicial/footer.php');?>      
         <script>
-            $('ul li:nth-child(3)').addClass('active');
-            $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');
+            $('ul li:nth-child(4)').addClass('active');
+            $('ul li:nth-child(4) a').addClass('active').append('<span class="sr-only">(current)</span>');
         </script>
     </body>
 </html>

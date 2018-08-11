@@ -229,8 +229,8 @@ for ($k = 0; $k < $m ; $k++){
                 }
                 
                 //Inserta el punto en la base de datos.
-                $sql = "INSERT INTO mediciones (id, time, longitud, latitud, point $nombres, idcampania) 
-                        VALUES ($j,'$time', $longitud, $latitud, $point $valores, $campania);";
+                $sql = "INSERT INTO mediciones (id, datetime, longitud, latitud, punto , idcampania) 
+                        VALUES ($j,'$time', $longitud, $latitud, $point , $campania);";
                 $conn->query($sql);
 
                 $j++;
@@ -326,3 +326,6 @@ for ($k = 0; $k < $m ; $k++){
 
 //CIERRE DE LA BASE DE DATOS.
 $conn->close();
+
+header("location: cargar-mediciones.php");
+die();

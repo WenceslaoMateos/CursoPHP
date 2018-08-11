@@ -5,6 +5,7 @@ $msg_error = 0;
 
 require('templates/coneccion.php');
 
+
 if(isset($_REQUEST['email']) && $_REQUEST['email'] != ""){
     $email = $_REQUEST['email'];
     $contra = $_REQUEST['contrasena'];
@@ -15,7 +16,8 @@ if(isset($_REQUEST['email']) && $_REQUEST['email'] != ""){
         $usuario_db = mysqli_fetch_assoc($usuario);
         $_SESSION['id'] = $usuario_db['id'];
         session_write_close();
-        header('mapa.php');
+        header('location: mapa.php');
+        die();
     }
     else{
         $msg_error = 1;
