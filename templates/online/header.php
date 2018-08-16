@@ -29,7 +29,7 @@
                         </div>        
                     </li>            
                     <li class="nav-item">
-                        <a class="nav-link" href="carga-batimetricos.php" id="login">Carga de Batimetrias</a>
+                        <a class="nav-link" href="cargar-batimetricos.php" id="login">Carga de Batimetrias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sesionBaja.php" id="login">Cerrar Sesión</a>
