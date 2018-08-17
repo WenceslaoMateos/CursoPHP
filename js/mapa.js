@@ -122,8 +122,19 @@ var select = new ol.interaction.Select({condition: ol.events.condition.click});
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
 
+function agregarFiltro(){
+  $("#filtros_a_aplicar_body").append('<tr><td>' + $("#barco option:selected").text() + '</td><td><input type="hidden" name="campanias[]" value="' + $("#barco").val() + '"></td><td>Eliminar</td></tr>');
+}
+
 $(document).ready(function(){
-  $("#enviar").click(changeVector);
+  $("#agregar").one('click', function() {
+    //if($("#desde").val() != "" && $("#hasta").val() != "")
+    $("#filtros_a_aplicar_head").removeClass("d-none");
+    $("#filtros_a_aplicar_body").removeClass("d-none");
+    $("#filtros_a_aplicar").removeClass("d-none");
+  });
+  $("#agregar").onclick(agregarFiltro);
+  $("#aplicar").onclick(changeVector);
   $('#barco').on('change',function(){
       var barco = $(this).val();
       if (barco){

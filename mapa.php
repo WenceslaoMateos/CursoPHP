@@ -19,11 +19,11 @@ require('templates/coneccion.php');
     </head>
     <body>
         <?php include('templates/online/header.php');?>  
-        <div class="row" style="margin-right: 0px;">
+        <div class="row mr-0" style="min-height: 100vh;">
             <aside class="col-4">
-                <form action="buscaDatosDB.php" method="post" name="filtro" enctype="multipart/form-data" class=" mt-5">
-                    <div class="mb-3">
-                        <select class="form-control" name="barco" require id="barco">
+                <form method="post" name="filtro" enctype="multipart/form-data" class=" mt-5">
+                    <div class="mb-3 form-group">
+                        <select class="form-control form-control-sm" name="barco" id="barco">
                             <option value="">Seleccione un barco</option>
                             <?php
                             $barcos = mysqli_query($db, "SELECT * FROM barcos;");
@@ -35,16 +35,45 @@ require('templates/coneccion.php');
                             ?>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <select class="form-control" name="campania" id="campania" require>
+                    <div class="mb-3 form-group">
+                        <select class="form-control form-control-sm" name="campania" id="campania">
                             <option value="">Seleccione una campaña</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary ml-5" name="Enviar" value="Enviar" id="enviar">Filtrar</button>
+                        <div class="row">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">Desde</label>
+                            <div class="col-10">
+                                <input class="form-control form-control-sm" type="datetime-local" id="desde">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">Hasta</label>
+                            <div class="col-10">
+                                <input class="form-control form-control-sm" type="datetime-local" id="hasta">
+                            </div>
+                        </div>
+                    <button type="button" class="btn btn-primary ml-5 mt-3" name="agregar" value="agregar" id="agregar">Agregar filtro</button>
+                    <div class="form-group mt-3">
+                        <table class="table table-striped table-bordered  table-sm" id="filtros_a_aplicar" name="filtros_a_aplicar" rows="3" readonly>
+                            <thead class="thead-dark d-none" id="filtros_a_aplicar_head">
+                                <tr>
+                                    <td>Barco</td>
+                                    <td>Campaña</td>
+                                    <td>Eliminar</td>
+                                </tr>
+                            </thead>
+                            <tbody class="d-none" id="filtros_a_aplicar_body">
+                                <tr>
+                                    <td>Desde: </td>
+                                    <td>Hasta: </td>
+                                    <td></td>
+                                </tr>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-primary ml-5 d-none" name="aplicar" value="aplicar" id="aplicar">Aplicar filtros</button>
                 </form>            
             </aside>
             <div id="map" class="map col-8 mt-2"></div>
-            <!--<a id="popup" tabindex="0" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="asdfasdf"></a>-->     
         </div>
         <script src="./js/mapasHidrografia.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>
