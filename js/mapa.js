@@ -5,6 +5,10 @@ var vector = new ol.layer.Vector({
   style: styleFunction
 });
 
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
 /**
   *Funcion que le da un estilo al vector correspondiente a los barcos.
   */
@@ -26,7 +30,7 @@ var styleFunction = function(feature) {
     style = new ol.style.Style({
       stroke: new ol.style.Stroke({
         color: '#777777',
-        width: 2
+        width: 4
       })
     })
   }
@@ -82,8 +86,15 @@ function cuadro(){
   */
 function changeVector(){
   var cuadrado = cuadro();
+  var link = "x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'];
+  if (campanias != '')
+    link += '&campanias='+campanias;
+  if (desde != '')
+    link += '&desde='+desde;
+  if (hasta != '')
+    link += '&hasta='+hasta;
   vector.setSource(new ol.source.Vector({
-    url: "buscaDatosDB.php?x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'],
+    url: "buscaDatosDB.php?" + link,
     format: new ol.format.KML({extractStyles: false})
   }));
   vector.setStyle(styleFunction);
@@ -93,7 +104,16 @@ function changeVector(){
 //map.on('moveend', changeVector);
 //Es preciso llamarlo una vez por que no reconoce el Style de entrada (problema de openlayer?)
 changeVector();
-var container = document.getElementById('popup');
+
+/**
+  *Funcion que al hacer click en el closer se cierra en degrade.
+  */
+closer.onclick = function(){
+//  overlay.setPosition(undefined);
+  $("#popup").fadeOut();
+//  closer.blur();
+  return false;
+}
 
 /**
   *Funcion que al seleccionar "that" busca los atributos del "that" y los escribe dentro del popup.
@@ -103,10 +123,13 @@ function hacerCuandoSeleccione(that){
     var geometria = that.selected[0].getGeometry();
     var posicion = geometria.getFirstCoordinate();  
     var propiedades = that.selected[0].getProperties()
+    $("#popup").fadeIn();
     overlay.setPosition(posicion);
     content.innerHTML = "";
     var claves = Object.keys(propiedades);
     claves = claves.filter(item => item != "geometry");
+    claves = claves.filter(item => item != "id");
+    claves = claves.filter(item => item != "campaniaid");
     claves = claves.filter(item => item != "type");
     claves = claves.filter(item => item != "styleUrl");
     claves.forEach(function(clave){
@@ -116,25 +139,44 @@ function hacerCuandoSeleccione(that){
     });
   }
 }
-
+  
 //Al seleccionar un elemento este debe desplegar el popup
 var select = new ol.interaction.Select({condition: ol.events.condition.click});
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
 
-function agregarFiltro(){
-  $("#filtros_a_aplicar_body").append('<tr><td>' + $("#barco option:selected").text() + '</td><td><input type="hidden" name="campanias[]" value="' + $("#barco").val() + '"></td><td>Eliminar</td></tr>');
-}
-
 $(document).ready(function(){
-  $("#agregar").one('click', function() {
-    //if($("#desde").val() != "" && $("#hasta").val() != "")
+  var i = 0;
+  $("#agregar_camp").one('click', function() {
     $("#filtros_a_aplicar_head").removeClass("d-none");
     $("#filtros_a_aplicar_body").removeClass("d-none");
     $("#filtros_a_aplicar").removeClass("d-none");
+    $("#aplicar").removeClass("d-none");
   });
-  $("#agregar").onclick(agregarFiltro);
-  $("#aplicar").onclick(changeVector);
+  $("#agregar_fecha").one('click', function() {
+    $("#filtros_a_aplicar_body").removeClass("d-none");
+    $("#filtros_a_aplicar").removeClass("d-none");
+    $("#aplicar").removeClass("d-none");
+  });
+  $("#agregar_fecha").on('click', function(){
+    i++;
+    var aux=i;
+    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="desde[]" value="' + $("#desde").val() + '">Desde: ' + $("#desde").val() + '</td><td><input type="hidden" name="hasta[]" value="' + $("#hasta").val() + '">Desde: ' + $("#desde").val() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+    $("#button_" + aux).on('click',function() {
+      console.log(aux);
+      $("#row_" + aux ).remove();
+    });
+  });
+  $("#agregar_camp").on('click', function(){
+    i++;
+    var aux=i;
+    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="campania[]" value="' + $("#campania option:selected").val() + '">' + $("#barco option:selected").text() + '</td><td>' + $("#campania option:selected").text() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+    $("#button_" + aux).on('click',function() {
+      console.log(aux);
+      $("#row_" + aux ).remove();
+    });
+  });
+  $("#aplicar").on('click',changeVector);
   $('#barco').on('change',function(){
       var barco = $(this).val();
       if (barco){
@@ -151,3 +193,4 @@ $(document).ready(function(){
       }
   });
 });
+
