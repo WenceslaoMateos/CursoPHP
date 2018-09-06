@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 0;
 
 require('templates/coneccion.php');
 
@@ -18,8 +19,8 @@ else
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Carga de batimetrías</title>
         <?php include('templates/inicial/head.php');?>  
-        <title>Carga de sensores</title>
     </head>
 <body>
     <?php include('templates/online/header.php');?>  
@@ -28,8 +29,8 @@ else
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
-                        <h3 class="h3">Carga de nuevas campañas</h3>
-                        <p>Aqui usted puede cargar nuevas campañas en el sistema.</p>
+                        <h3 class="h3">Carga de datos batimétricos</h3>
+                        <p>Aqui usted puede cargar datos batimétricos dentro del sistema.</p>
                     </div>
                 </div>
             </div>

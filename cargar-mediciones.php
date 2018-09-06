@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 5;
 
 require('templates/coneccion.php');
 
@@ -10,8 +11,8 @@ require('templates/coneccion.php');
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Carga de mediciones</title>
         <?php include('templates/inicial/head.php');?>  
-        <title>Carga de sensores</title>
     </head>
 <body>
     <?php include('templates/online/header.php');?>  
@@ -39,7 +40,7 @@ require('templates/coneccion.php');
                         <label class="custom-file-label" for="input2">Adjuntar formatos...</label>
                     </div>
                     <div class="mb-3">
-                        <select class="form-control" name="barco" require id="barco">
+                        <select class="form-control" name="barco" required id="barco">
                             <option value="">Seleccione un barco</option>
                             <?php
                             $barcos = mysqli_query($db, "SELECT * FROM barcos;");
@@ -52,7 +53,7 @@ require('templates/coneccion.php');
                         </select>
                     </div>
                     <div class="mb-3">
-                        <select class="form-control" name="campania" id="campania" require>
+                        <select class="form-control" name="campania" id="campania" required>
                             <option value="">Seleccione una campaña</option>
                         </select>
                     </div>

@@ -1,5 +1,6 @@
 <?php
-    $precisa_sesion = true;
+$permiso = 0;
+$precisa_sesion = true;
     require('templates/coneccion.php');
     if (!empty($_REQUEST["barco"])){
         $campanias_query = mysqli_query($db, "SELECT * FROM campanias WHERE idbarcos = " . $_REQUEST['barco'] . ";");

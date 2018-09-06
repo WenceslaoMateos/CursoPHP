@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 15;
 
 require('templates/coneccion.php');
 
@@ -10,8 +11,8 @@ require('templates/coneccion.php');
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Carga de barcos</title>
         <?php include('templates/inicial/head.php');?>  
-        <title>Carga de sensores</title>
     </head>
 <body>
     <?php include('templates/online/header.php');?>  
@@ -29,9 +30,9 @@ require('templates/coneccion.php');
         <div class="container">
         <div class="row" style="margin: 0px;">
             <div class="col-7" id="crearbarco">
-                <form action="cargar-barco-DB.php">
+                <form action="cargar-barco-DB.php" method="post">
                     <label for="nombreBarco">Nombre del barco</label>
-                    <input type="text" name="nombreBarco" id="nombreBarco" class="form-control" placeholder="Nombre del barco">
+                    <input type="text" name="nombreBarco" id="nombreBarco" class="form-control" required placeholder="Nombre del barco">
                     <button class="btn btn-primary ml-5 mt-3" type="submit">Cargar</button>
                 </form>
             </div>

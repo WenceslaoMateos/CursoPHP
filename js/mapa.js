@@ -147,34 +147,49 @@ select.on('select', hacerCuandoSeleccione, this);
 
 $(document).ready(function(){
   var i = 0;
-  $("#agregar_camp").one('click', function() {
-    $("#filtros_a_aplicar_head").removeClass("d-none");
-    $("#filtros_a_aplicar_body").removeClass("d-none");
-    $("#filtros_a_aplicar").removeClass("d-none");
-    $("#aplicar").removeClass("d-none");
-  });
-  $("#agregar_fecha").one('click', function() {
-    $("#filtros_a_aplicar_body").removeClass("d-none");
-    $("#filtros_a_aplicar").removeClass("d-none");
-    $("#aplicar").removeClass("d-none");
-  });
   $("#agregar_fecha").on('click', function(){
     i++;
     var aux=i;
-    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="desde[]" value="' + $("#desde").val() + '">Desde: ' + $("#desde").val() + '</td><td><input type="hidden" name="hasta[]" value="' + $("#hasta").val() + '">Desde: ' + $("#desde").val() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+    var date = new Date($("#desde").val());
+    var desde = " " + date.getDate() + "/"+ (date.getMonth()+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    date = new Date($("#hasta").val());
+    var hasta = " " + date.getDate() + "/"+ (date.getMonth()+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="desde[]" value="' + $("#desde").val() + '">Desde: ' + desde + '</td><td><input type="hidden" name="hasta[]" value="' + $("#hasta").val() + '">Hasta: ' + hasta + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+    $("#filtros_a_aplicar_body").removeClass("d-none");
+    $("#filtros_a_aplicar").removeClass("d-none");
+    $("#aplicar").removeClass("d-none");
     $("#button_" + aux).on('click',function() {
-      console.log(aux);
       $("#row_" + aux ).remove();
+      if ($("#filtros_a_aplicar_body").children().length == 0){
+        $("#filtros_a_aplicar").addClass("d-none");
+        $("#aplicar").addClass("d-none");
+      }
     });
   });
+  $("#campania_invalida").on('click',function(){
+    $("#campania_invalida").fadeOut();
+  })
   $("#agregar_camp").on('click', function(){
-    i++;
-    var aux=i;
-    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="campania[]" value="' + $("#campania option:selected").val() + '">' + $("#barco option:selected").text() + '</td><td>' + $("#campania option:selected").text() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
-    $("#button_" + aux).on('click',function() {
-      console.log(aux);
-      $("#row_" + aux ).remove();
-    });
+    if ($("#campania").val() != -1){
+      $("#campania_invalida").fadeOut();
+      i++;
+      var aux=i;
+      $("#filtros_a_aplicar_body").prepend('<tr id="row_'+ i +'"><td><input type="hidden" name="campania[]" value="' + $("#campania option:selected").val() + '">' + $("#barco option:selected").text() + '</td><td>' + $("#campania option:selected").text() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+      $("#filtros_a_aplicar_head").removeClass("d-none");
+      $("#filtros_a_aplicar_body").removeClass("d-none");
+      $("#filtros_a_aplicar").removeClass("d-none");
+      $("#aplicar").removeClass("d-none");
+      $("#button_" + aux).on('click',function() {
+        $("#row_" + aux ).remove();
+        if ($("#filtros_a_aplicar_body").children().length == 0){
+          $("#filtros_a_aplicar").addClass("d-none");
+          $("#aplicar").addClass("d-none");
+        }
+      });
+    }
+    else{
+      $("#campania_invalida").fadeIn();
+    }
   });
   $("#aplicar").on('click',changeVector);
   $('#barco').on('change',function(){

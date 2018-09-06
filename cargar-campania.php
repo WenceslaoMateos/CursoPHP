@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 10;
 
 require('templates/coneccion.php');
 
@@ -10,8 +11,8 @@ require('templates/coneccion.php');
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Carga de campañas</title>
         <?php include('templates/inicial/head.php');?>  
-        <title>Carga de sensores</title>
     </head>
 <body>
     <?php include('templates/online/header.php');?>  
@@ -29,8 +30,8 @@ require('templates/coneccion.php');
         <div class="container">
         <div class="row" style="margin: 0px;">
             <div class="col-7" id="crearcampania">
-                <form action="cargar-campania-DB.php">
-                    <select class="form-control" name="cargaBarcoCamp" require id="cargaBarcoCamp">
+                <form action="cargar-campania-DB.php" method="post">
+                    <select class="form-control" name="cargaBarcoCamp" required id="cargaBarcoCamp">
                         <option value="">Seleccione un barco</option>
                         <?php
                         $barcos = mysqli_query($db, "SELECT * FROM barcos;");
@@ -42,7 +43,7 @@ require('templates/coneccion.php');
                         ?>
                     </select>
                     <label for="nombreCamp">Nombre de la campaña</label>
-                    <input type="text" name="nombreCamp" id="nombreCamp" class="form-control" placeholder="Nombre de la campaña">
+                    <input type="text" required name="nombreCamp" id="nombreCamp" class="form-control" placeholder="Nombre de la campaña">
                     <label for="descripcion">Descripción de la campaña</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
                     <button class="btn btn-primary ml-5 mt-3" type="submit">Cargar</button>

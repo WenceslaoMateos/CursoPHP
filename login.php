@@ -2,6 +2,7 @@
 
 $precisa_sesion = false;
 $msg_error = 0;
+$permiso = 0;
 
 require('templates/coneccion.php');
 
@@ -15,6 +16,7 @@ if(isset($_REQUEST['email']) && $_REQUEST['email'] != ""){
     if(mysqli_num_rows($usuario) > 0){
         $usuario_db = mysqli_fetch_assoc($usuario);
         $_SESSION['id'] = $usuario_db['id'];
+        $_SESSION['permiso'] = $usuario_db['permiso'];
         session_write_close();
         header('location: mapa.php');
         die();
@@ -31,7 +33,7 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
     $contra = $_REQUEST['nuevo_contrasena'];
     $contra = md5($contra);
     $usuario = mysqli_query($db, "  INSERT INTO usuarios (nombre, apellido, contrasena, email) 
-                                    VALUES ($nom, $apell, $contra, $email);");
+                                    VALUES ('$nom', '$apell', '$contra', '$email');");
     session_write_close();
     header('login.php');
 }
@@ -40,45 +42,37 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Log In</title>
         <?php include('templates/inicial/head.php');?>  
     </head>
     <body>
         <?php include('templates/inicial/header.php');?>  
         <main>
+            <div class="jumbotron jumbotron-sm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <h3 class="h3">Acceso de usuarios <small> </small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
             <div class="container">    
-                <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+                <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
                     <div class="panel panel-info" >
-                        <div class="panel-heading">
-                            <div class="jumbotron jumbotron-sm">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-12">
-                                            <h6 class="h6">Acceder  <small><a href="#">¿Olvidó su contraseña?</a></small></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>    
-                        <?php if($msg_error == 1){?>
-                        <div class="alert alert-warning">Nombre de usuario o contraseña incorrecto</div>
-                        <?php } ?>
                         <div style="padding-top:30px" class="panel-body" >
+                        <?php if($msg_error == 1){?>
+                        <div id="acceso_incorrecto" class="alert alert-warning">Nombre de usuario o contraseña incorrecto</div>
+                        <?php } ?>
                             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                            <form id="loginform" class="form-horizontal" role="form">
+                            <form id="loginform" class="form-horizontal" role="form" method="post">
                                 <div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="login-username" type="text" class="form-control" name="email" value="" placeholder="Correo electrónico">                                        
+                                    <input id="login-username" type="text" class="form-control" name="email" value="" required placeholder="Correo electrónico">                                        
                                 </div>                                
                                 <div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="login-password" type="password" class="form-control" name="contrasena" placeholder="Contraseña">
-                                </div>
-                                <div class="input-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input id="login-remember" type="checkbox" name="remember" value="1"> Mantener iniciada la sesión
-                                        </label>
-                                    </div>
+                                    <input id="login-password" type="password" class="form-control" name="contrasena" required placeholder="Contraseña">
                                 </div>
                                     <div style="margin-top:10px" class="form-group">
                                         <div class="col-sm-12 controls">
@@ -96,12 +90,12 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
                             </div>                     
                         </div>  
                 </div>
-                <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div id="signupbox" style="display:none;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="jumbotron jumbotron-sm">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12 text-right  ">
-                                    <h6 class="h6"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Acceder</a></h6>
+                                    <h6 class="h6"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Volver</a></h6>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +103,7 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
                     <div class="panel panel-info">
                         <div class="panel-heading">
                         <div class="panel-body" >
-                            <form id="signupform" class="form-horizontal" role="form">
+                            <form id="signupform" class="form-horizontal" method="post">
                                 <div id="signupalert" style="display:none" class="alert alert-danger">
                                     <p>Error:</p>
                                     <span></span>
@@ -140,7 +134,7 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <a type="submit" id="btn-login" class="btn btn-success">Crear  </a>
+                                        <button type="submit" id="btn-login" class="btn btn-success">Crear  </button>
                                     </div>
                                 </div>
                             </form>
@@ -151,6 +145,7 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
         </main>
         <?php include('templates/inicial/footer.php');?>  
         <script>
+            $()
             $('ul li:nth-child(3)').addClass('active');
             $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');
         </script>

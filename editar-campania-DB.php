@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 50;
 
 require('templates/coneccion.php');
 
@@ -11,9 +12,8 @@ $campania_query = mysqli_query($db, "SELECT * FROM campanias WHERE id=" . $id . 
 
 $campania = mysqli_fetch_assoc($campania_query);
 
-$confirma = $_REQUEST['confirma'];
 
-if ($confirma == "si"){
+if (isset($_REQUEST['confirma']) && $_REQUEST['confirma'] == "si"){
     $nombre = $_REQUEST['nombreCamp'];
     $barco = $_REQUEST['cargaBarcoCamp'];
     $desc = $_REQUEST['descripcion'];
@@ -27,8 +27,8 @@ if ($confirma == "si"){
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Edición de campaña</title>
         <?php include('templates/inicial/head.php');?>  
-        <title>Carga de sensores</title>
     </head>
 <body>
     <?php include('templates/online/header.php');?>  
@@ -38,14 +38,14 @@ if ($confirma == "si"){
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
                         <h3 class="h3">Edición de campañas</h3>
-                        <p>Aqui usted puede editar la campaña Seleccionada.</p>
+                        <p>Aqui usted puede editar la campaña seleccionada.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row" style="margin: 0px;">
             <div class="col-7" id="crearcampania">
-                <form action="editar-campania-DB.php">
+                <form action="editar-campania-DB.php" method="post">
                     <select class="form-control" name="cargaBarcoCamp" require id="cargaBarcoCamp">
                         <option value="">Seleccione un barco</option>
                         <?php
@@ -73,8 +73,8 @@ if ($confirma == "si"){
     </main>
     <?php include('templates/inicial/footer.php');?>      
     <script>
-        $('ul li:nth-child(2)').addClass('active');
-        $('ul li:nth-child(2) a').addClass('active').append('<span class="sr-only">(current)</span>');
+        $('ul li:nth-child(3)').addClass('active');
+        $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');
     </script>
     </body>
 </html>

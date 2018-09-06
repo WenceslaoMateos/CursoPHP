@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 4294967295;
 
 require('templates/coneccion.php');
 

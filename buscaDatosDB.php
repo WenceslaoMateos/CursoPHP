@@ -2,6 +2,7 @@
 
 $precisa_sesion = true;
 $msg_error = 0;
+$permiso = 0;
 
 require('templates/coneccion.php');
 //HEADER DEL KML A SER GENERADO
@@ -66,11 +67,10 @@ $sql = "SELECT
 
 $sql2 = "SELECT DISTINCT idcampania
         FROM mediciones "; 
-
-if (!empty($campanias) || isset($desde)){
+if ((!empty($campanias) && ($campanias != -1)) || isset($desde)){
     $sql .= "WHERE (";
     $sql2 .= "WHERE (";
-    {if (!empty($campanias)){
+    {if ((!empty($campanias) && ($campanias != -1))){
         foreach($campanias as $clave => $valor){
             $sql .= "idcampania=$valor OR ";
             $sql2 .= "idcampania=$valor OR ";
@@ -112,7 +112,7 @@ if (mysqli_num_rows($query_camp) > 0){
 
 
         //Cada Placemark es un conjunto de varias mediciones.
-        $cantMed = 10;
+        $cantMed = 100;
         $j = 0;
         $i = 0;
         $kml .= '      <Placemark>'."\n";
